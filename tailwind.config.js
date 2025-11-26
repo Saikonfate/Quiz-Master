@@ -16,11 +16,11 @@ export default {
             },
             colors: {
                 brand: {
-                    yellow: '#FFD700', // Gold/Yellow
-                    dark: '#1a1a1a',   // Very dark gray
-                    darker: '#111111', // Almost black
-                    light: '#f3f4f6',  // Light gray for text
-                    gray: '#2d2d2d',   // Card background
+                    yellow: '#FFD700',
+                    dark: '#1a1a1a',
+                    darker: '#111111',
+                    light: '#f3f4f6',
+                    gray: '#2d2d2d',
                 }
             }
         },

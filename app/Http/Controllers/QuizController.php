@@ -11,9 +11,8 @@ class QuizController extends Controller
 {
     public function start()
     {
-        // Select 10 random questions with their options
         $questions = Question::with(['options' => function ($query) {
-            $query->select('id', 'question_id', 'text'); // Don't send is_correct to frontend
+            $query->select('id', 'question_id', 'text');
         }])->inRandomOrder()->limit(10)->get();
 
         return response()->json($questions);
@@ -39,7 +38,7 @@ class QuizController extends Controller
 
             if ($selectedOption && $selectedOption->is_correct) {
                 $correctCount++;
-                $score += 10; // Example scoring: 10 points per correct answer
+                $score += 10;
             } else {
                 $errorCount++;
             }

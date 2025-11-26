@@ -81,7 +81,7 @@ class QuestionSeeder extends Seeder
                 'statement' => 'Quantos continentes existem?',
                 'options' => [
                     ['text' => '5', 'is_correct' => false],
-                    ['text' => '6', 'is_correct' => true], // América, Europa, Ásia, África, Oceania, Antártida (modelo mais comum)
+                    ['text' => '6', 'is_correct' => true],
                     ['text' => '7', 'is_correct' => false],
                     ['text' => '4', 'is_correct' => false],
                 ]

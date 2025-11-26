@@ -6,16 +6,15 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
+        <!-- Fontes -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        <!-- Styles -->
+        <!-- E -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased bg-brand-darker text-brand-light min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
         
-        <!-- Background Elements -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
             <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-yellow/10 rounded-full blur-3xl"></div>
             <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-yellow/5 rounded-full blur-3xl"></div>
