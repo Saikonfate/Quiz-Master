@@ -96,7 +96,7 @@ class QuizController extends Controller
     {
         $request->validate([
             'question_id' => 'required|exists:questions,id',
-            'option_id' => 'required|exists:options,id',
+            'option_id' => 'required|exists:options,id,question_id,' . $request->question_id,
         ]);
 
         $question = Question::find($request->question_id);

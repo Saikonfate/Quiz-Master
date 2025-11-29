@@ -9,8 +9,17 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+    /**
+     * ATENÇÃO: Este seeder cria usuários com senha fraca (123456)
+     * para fins de desenvolvimento e testes.
+     * NÃO execute em produção!
+     */
     public function run(): void
     {
+        if (app()->environment('production')) {
+            $this->command->warn('UserSeeder não deve ser executado em produção!');
+            return;
+        }
         $users = [
             ['name' => 'João Silva', 'email' => 'joao@email.com', 'score' => 100, 'correct' => 10, 'error' => 0, 'time' => 45],
             ['name' => 'Maria Santos', 'email' => 'maria@email.com', 'score' => 90, 'correct' => 9, 'error' => 1, 'time' => 52],
