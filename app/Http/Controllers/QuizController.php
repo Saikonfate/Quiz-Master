@@ -9,11 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
-    public function start()
+    public function start(Request $request)
     {
-        $questions = Question::with(['options' => function ($query) {
+        $categories = $request->input('categories', []);
+        
+        $query = Question::with(['options' => function ($query) {
             $query->select('id', 'question_id', 'text');
-        }])->inRandomOrder()->limit(10)->get();
+        }]);
+        
+        if (!empty($categories)) {
+            $query->whereIn('category', $categories);
+        }
+        
+        $questions = $query->inRandomOrder()->limit(10)->get();
 
         return response()->json($questions);
     }
@@ -73,5 +81,31 @@ class QuizController extends Controller
             ->take(10);
 
         return response()->json($ranking);
+    }
+
+    public function history()
+    {
+        $history = QuizResult::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($history);
+    }
+
+    public function checkAnswer(Request $request)
+    {
+        $request->validate([
+            'question_id' => 'required|exists:questions,id',
+            'option_id' => 'required|exists:options,id',
+        ]);
+
+        $question = Question::find($request->question_id);
+        $correctOption = $question->options()->where('is_correct', true)->first();
+        $isCorrect = $correctOption->id == $request->option_id;
+
+        return response()->json([
+            'is_correct' => $isCorrect,
+            'correct_option_id' => $correctOption->id
+        ]);
     }
 }

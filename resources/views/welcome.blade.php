@@ -3,56 +3,58 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fontes -->
+        <title>GênioQuiz</title>
+        <link rel="icon" type="image/png" href="{{ asset('imgs/Hands Graduate.png') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        <!-- E -->
+        <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="antialiased bg-brand-darker text-brand-light min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
-        
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-yellow/10 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-yellow/5 rounded-full blur-3xl"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto p-6 lg:p-8 text-center">
-            <div class="flex justify-center mb-8">
-                <x-application-logo class="w-24 h-24 fill-current text-brand-yellow" />
-            </div>
-
-            <h1 class="text-5xl font-bold text-brand-yellow mb-4 tracking-tight">
-                Quiz Master
-            </h1>
-            
-            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
-                Teste seus conhecimentos, desafie seus limites e conquiste o topo do ranking.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="px-8 py-4 bg-brand-yellow text-brand-dark font-bold rounded-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105 shadow-lg uppercase tracking-wider">
-                            Ir para o Dashboard
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="px-8 py-4 bg-brand-yellow text-brand-dark font-bold rounded-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105 shadow-lg uppercase tracking-wider">
-                            Entrar
-                        </a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="px-8 py-4 bg-transparent border-2 border-brand-yellow text-brand-yellow font-bold rounded-lg hover:bg-brand-yellow hover:text-brand-dark transition duration-300 transform hover:scale-105 uppercase tracking-wider">
-                                Registrar-se
-                            </a>
+    <body class="font-sans antialiased bg-white text-primary">
+        <div class="min-h-screen flex flex-col">
+            <header class="w-full px-6 lg:px-20 py-6">
+                <div class="max-w-7xl mx-auto flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <img src="{{ asset('imgs/Hands Graduate.png') }}" alt="GênioQuiz" class="h-10 w-auto" />
+                        <span class="text-xl font-semibold tracking-tight">GênioQuiz</span>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="text-sm font-medium text-muted hover:text-primary transition">Painel</a>
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm font-medium text-muted hover:text-primary transition">Entrar</a>
+                                <a href="{{ route('register') }}" class="px-5 py-2.5 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition">Criar conta</a>
+                            @endauth
                         @endif
-                    @endauth
-                @endif
-            </div>
-        </div>
+                    </div>
+                </div>
+            </header>
 
+            <main class="flex-grow flex items-center px-6 lg:px-20 py-20">
+                <div class="max-w-7xl mx-auto w-full">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h1 class="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-primary mb-6">
+                                Teste seus conhecimentos de forma inteligente
+                            </h1>
+                            <p class="text-lg text-muted leading-relaxed mb-10 max-w-lg">
+                                Uma plataforma simples e elegante para criar, responder quizzes e acompanhar seu progresso.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-medium rounded-xl hover:bg-primary/90 transition shadow-lg shadow-primary/25">
+                                    Começar agora
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex justify-center lg:justify-end">
+                            <img src="{{ asset('imgs/g132.png') }}" alt="Ilustração Quiz" class="w-full max-w-md lg:max-w-lg" />
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </body>
 </html>
