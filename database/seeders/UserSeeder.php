@@ -48,5 +48,24 @@ class UserSeeder extends Seeder
                 'total_time_seconds' => $userData['time'],
             ]);
         }
+
+        $teste = User::create([
+            'name' => 'Teste',
+            'email' => 'teste@email.com',
+            'password' => Hash::make('123456'),
+        ]);
+
+        for ($i = 1; $i <= 20; $i++) {
+            $correct = rand(3, 10);
+            $error = 10 - $correct;
+            QuizResult::create([
+                'user_id' => $teste->id,
+                'score' => $correct * 10,
+                'correct_count' => $correct,
+                'error_count' => $error,
+                'total_time_seconds' => rand(30, 180),
+                'created_at' => now()->subDays(20 - $i)->subHours(rand(0, 23)),
+            ]);
+        }
     }
 }

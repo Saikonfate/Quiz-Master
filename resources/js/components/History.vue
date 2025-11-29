@@ -42,23 +42,66 @@
                         <p class="text-sm">Comece a jogar para ver seu histórico!</p>
                     </li>
                 </ul>
+                
+                <div v-if="pagination.lastPage > 1" class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                    <p class="text-sm text-muted">
+                        Página {{ pagination.currentPage }} de {{ pagination.lastPage }}
+                        <span class="ml-2">({{ pagination.total }} resultados)</span>
+                    </p>
+                    <div class="flex gap-2">
+                        <button 
+                            @click="goToPage(pagination.currentPage - 1)" 
+                            :disabled="pagination.currentPage === 1"
+                            :class="['px-4 py-2 rounded-lg text-sm font-medium transition',
+                                pagination.currentPage === 1 
+                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                    : 'bg-gray-100 text-primary hover:bg-gray-200']">
+                            Anterior
+                        </button>
+                        <button 
+                            @click="goToPage(pagination.currentPage + 1)" 
+                            :disabled="pagination.currentPage === pagination.lastPage"
+                            :class="['px-4 py-2 rounded-lg text-sm font-medium transition',
+                                pagination.currentPage === pagination.lastPage 
+                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                    : 'bg-primary text-white hover:bg-primary/90']">
+                            Próxima
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import axios from 'axios';
 
 const history = ref([]);
+const pagination = reactive({
+    currentPage: 1,
+    lastPage: 1,
+    total: 0
+});
 
-const fetchHistory = async () => {
+const fetchHistory = async (page = 1) => {
     try {
-        const response = await axios.get('/api/quiz/history');
-        history.value = response.data;
+        const response = await axios.get('/api/quiz/history', {
+            params: { page }
+        });
+        history.value = response.data.data;
+        pagination.currentPage = response.data.current_page;
+        pagination.lastPage = response.data.last_page;
+        pagination.total = response.data.total;
     } catch (error) {
         console.error('Error fetching history:', error);
+    }
+};
+
+const goToPage = (page) => {
+    if (page >= 1 && page <= pagination.lastPage) {
+        fetchHistory(page);
     }
 };
 
