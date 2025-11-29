@@ -19,7 +19,15 @@
                 </div>
 
                 <div class="text-center">
-                    <button @click="startQuiz" class="inline-flex items-center px-8 py-4 bg-primary text-white font-medium rounded-xl hover:bg-primary/90 transition shadow-lg shadow-primary/25">
+                    <p v-if="selectedTopics.length === 0" class="text-sm text-muted mb-4">
+                        Selecione pelo menos um tema para começar
+                    </p>
+                    <button @click="startQuiz" 
+                        :disabled="selectedTopics.length === 0"
+                        :class="['inline-flex items-center px-8 py-4 font-medium rounded-xl transition shadow-lg',
+                            selectedTopics.length === 0 
+                                ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' 
+                                : 'bg-primary text-white hover:bg-primary/90 shadow-primary/25']">
                         Iniciar Quiz
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
